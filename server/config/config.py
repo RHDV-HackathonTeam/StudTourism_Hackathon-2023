@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 
 DB_SETTINGS = {
-    'host': '192.168.32.3',
+    'host': "192.168.32.3",
     'port': '5432',
     'database': 'studhack',
     'user': 'root',

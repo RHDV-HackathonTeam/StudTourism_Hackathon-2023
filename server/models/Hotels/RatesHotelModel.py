@@ -10,7 +10,8 @@ class RatesHotelModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     room_type = db.Column(db.String(), nullable=False)
-    count =  db.Column(db.String(), nullable=False)
+    bed_count = db.Column(db.String(), nullable=False)
+    count = db.Column(db.String(), nullable=False)
     price = db.Column(db.String(), nullable=False)
     description = db.Column(db.String(), nullable=False)
 
@@ -21,6 +22,7 @@ class RatesHotelModel(db.Model):
             self,
             hotel,
             room_type,
+            bed_count,
             count,
             price,
             description
@@ -31,6 +33,7 @@ class RatesHotelModel(db.Model):
             self.count = count
             self.price = price
             self.description = description
+            self.bed_count = bed_count
 
             hotel.hotelrates.append(self)
             current_db_sessions = db.object_session(hotel)

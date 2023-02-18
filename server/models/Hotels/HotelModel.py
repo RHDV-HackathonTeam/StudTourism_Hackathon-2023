@@ -8,20 +8,22 @@ class HotelModel(db.Model):
     __tablename__ = 'hotel'
 
     id = db.Column(db.Integer, primary_key=True)
-    hostel = db.Column(db.String(), nullable=False)
-    university = db.Column(db.String(), nullable=False)
-    website = db.Column(db.String(), nullable=False)
-    picture_url = db.Column(db.String(), nullable=False)
-    region = db.Column(db.String(), nullable=False)
-    city = db.Column(db.String(), nullable=False)
-    nutrition = db.Column(db.String(), nullable=False)
-    address = db.Column(db.String(), nullable=False)
-    period = db.Column(db.String(), nullable=False)
-    conditions_for_organizations = db.Column(db.String(), nullable=False)
-    conditions_for_students = db.Column(db.String(), nullable=False)
-    organization = db.Column(db.String(), nullable=False)
-    phone = db.Column(db.String(), nullable=False)
-    email = db.Column(db.String(), nullable=False)
+    hostel = db.Column(db.String(), nullable=True)
+    university = db.Column(db.String(), nullable=True)
+    website = db.Column(db.String(), nullable=True)
+    picture_url = db.Column(db.String(), nullable=True)
+    region = db.Column(db.String(), nullable=True)
+    city = db.Column(db.String(), nullable=True)
+    nutrition = db.Column(db.String(), nullable=True)
+    address = db.Column(db.String(), nullable=True)
+    period = db.Column(db.String(), nullable=True)
+    conditions_for_organizations = db.Column(db.String(), nullable=True)
+    conditions_for_students = db.Column(db.String(), nullable=True)
+    organization = db.Column(db.String(), nullable=True)
+    phone = db.Column(db.String(), nullable=True)
+    email = db.Column(db.String(), nullable=True)
+    href = db.Column(db.String(), nullable=True)
+
 
     def __init__(
             self,
@@ -38,7 +40,8 @@ class HotelModel(db.Model):
             conditions_for_students,
             organization,
             phone,
-            email
+            email,
+            href
     ):
         with app.app_context():
             self.hostel = hostel
@@ -55,6 +58,7 @@ class HotelModel(db.Model):
             self.organization = organization
             self.phone = phone
             self.email = email
+            self.href = href
 
             db.session.add(self)
             db.session.commit()
