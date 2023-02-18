@@ -27,8 +27,8 @@ public class MainService {
         hostels.add(new Hostel(3,"Гостиница университета", "МоСаНИНА", "Можайск", 3, 7, 900, R.drawable.hostel_3));
         hostels.add(new Hostel(4,"Общежитие центральное", "УДН", "Новосибирск", 1, 5, 78, R.drawable.hostel_4));
         books.add(new Book("23 Февраля 2023", "24 Февраля 2023", "Москва", "Общежитие 6"));
-        userPoints.add(new UserPoint(59.928633, 30.293880, "Замечательное место отдыха", R.drawable.peterburg1));
-        userPoints.add(new UserPoint(59.950342, 30.369633, "Основная водная магистраль города: река Нева, которая впадает в Невскую губу Финского залива, относящегося к Балтийскому морю.", R.drawable.peterburg2));
+        userPoints.add(new UserPoint("Исакеевский собор", 59.928633, 30.293880, "Замечательное место отдыха", R.drawable.peterburg1));
+        userPoints.add(new UserPoint("Красивый вид",59.950342, 30.369633, "Основная водная магистраль города: река Нева, которая впадает в Невскую губу Финского залива, относящегося к Балтийскому морю.", R.drawable.peterburg2));
 
     }
 

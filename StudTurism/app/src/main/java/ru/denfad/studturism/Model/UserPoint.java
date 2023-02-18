@@ -7,11 +7,13 @@ public class UserPoint {
     public double X;
     public double Y;
     public int likeCount = 0;
-    String description;
+    public String name;
+    public String description;
     public int imageId;
     public String imageUri;
 
-    public UserPoint(double x, double y, String description, int imageId) {
+    public UserPoint(String name, double x, double y, String description, int imageId) {
+        this.name = name;
         X = x;
         Y = y;
         this.description = description;

@@ -146,7 +146,7 @@ public class ProfileFragment extends Fragment {
             holder.authorImage.setClipToOutline(true);
             holder.authorImage.setImageDrawable(getResources().getDrawable(R.drawable.profile_ic));
 
-            holder.authorName.setText("Дмитрий Хуев");
+            holder.authorName.setText("Дмитрий Гидаспов");
 
         }
 
