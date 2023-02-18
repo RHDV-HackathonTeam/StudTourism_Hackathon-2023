@@ -1,10 +1,10 @@
 from flask_migrate import Migrate
-from .config import app, db
+from server.config.config import app, db
 
-from .models.News import NewsModel, NewsTagModel
-from .models.Events import EventModel
-from .models.Science import ScienceModel
-from .models.Hotels import HotelModel, RatesHotelModel, ServicesHotel
+from server.models.News import NewsModel, NewsTagModel
+from server.models.Events import EventModel
+from server.models.Science import ScienceModel
+from server.models.Hotels import HotelModel, RatesHotelModel, ServicesHotel
 
 migrate = Migrate(app, db)
 

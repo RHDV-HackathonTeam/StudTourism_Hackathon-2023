@@ -4,11 +4,11 @@ from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 
 DB_SETTINGS = {
-    'host': f'{os.getenv("db_host")}',
-    'port': f'{os.getenv(("db_port"))}',
-    'database': f'{os.getenv("db_database")}',
-    'user': f'{os.getenv("db_user")}',
-    'password': f'{os.getenv("db_password")}'
+    'host': '192.168.32.3',
+    'port': '5432',
+    'database': 'studhack',
+    'user': 'root',
+    'password': 'root'
 }
 
 app = Flask(__name__)

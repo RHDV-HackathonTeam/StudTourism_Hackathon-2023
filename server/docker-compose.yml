@@ -1,7 +1,7 @@
 version: '3.8'
 
-# docker-compose -f docker-compose.yaml build
-# docker-compose -f docker-compose.yaml up
+# docker-compose -f database.yml build
+# docker-compose -f database.yml up
 
 services:
   db:

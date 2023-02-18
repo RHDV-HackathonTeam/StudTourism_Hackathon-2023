@@ -1,10 +1,11 @@
-# from server.config import db, app
+from server.config import db, app
+
 
 import sys
 import os
 
-sys.path.insert(1, os.path.join(sys.path[0], '../../'))
-from config import db, app
+# sys.path.insert(1, os.path.join(sys.path[0], '../../'))
+# from config import db, app
 
 class EventModel(db.Model):
     __tablename__ = 'event'
