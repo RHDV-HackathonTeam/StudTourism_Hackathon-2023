@@ -2,6 +2,8 @@ from aiogram import types
 
 url_channel = "https://t.me/TestRefAuth"
 hello_string = "Привет! Твой аккаунт был успешно зарегистрирован."
+welcome_string = "Добро пожаловать"
+need_reg_string = "Пожалуйста, зарегестрируйте свою учетную запись"
 already_reg_string = "Ты уже зарегистрирован."
 channel_username = '@auth_ref_bot'
 subcribe_string = 'Подпишитесь на нашу группу, что получить повышенный бонус при путешествиях'

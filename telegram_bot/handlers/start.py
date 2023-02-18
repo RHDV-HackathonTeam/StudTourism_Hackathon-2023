@@ -19,6 +19,10 @@ async def start_and_reg(message: types.Message):
                 await bot.send_message(chat_id=message.chat.id, text=mp.already_reg_string, reply_markup=base_keyboard)
             else:
                 await bot.send_message(chat_id=message.chat.id, text=mp.hello_string, reply_markup=base_keyboard)
-                # await utils.register_user(uuid=uuid, chat_id=message.chat.id, username=message.chat.username, timestamp=date)
+        else:
+            if db.get_by_id(message.from_id) != None:
+                await bot.send_message(chat_id=message.chat.id, text=mp.welcome_string, reply_markup=base_keyboard)
+            else:
+                await bot.send_message(chat_id=message.chat.id, text=mp.need_reg_string, reply_markup=base_keyboard)
     except Exception as e:
         await message.reply(message, f'{e}')
