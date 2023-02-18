@@ -1,4 +1,4 @@
-package ru.denfad.studturism;
+package ru.denfad.studturism.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ru.denfad.studturism.Model.Hostel;
+import ru.denfad.studturism.R;
 import ru.denfad.studturism.Sevice.MainService;
 import ru.denfad.studturism.activities.HostelActivity;
 import ru.denfad.studturism.ui.TopSheetBehavior;

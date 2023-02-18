@@ -1,5 +1,6 @@
-package ru.denfad.studturism;
+package ru.denfad.studturism.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.like.LikeButton;
@@ -35,7 +35,9 @@ import com.yandex.runtime.ui_view.ViewProvider;
 import java.util.List;
 
 import ru.denfad.studturism.Model.UserPoint;
+import ru.denfad.studturism.R;
 import ru.denfad.studturism.Sevice.MainService;
+import ru.denfad.studturism.activities.AddMarkActivity;
 
 
 public class MapFragment extends Fragment  {
@@ -128,12 +130,16 @@ public class MapFragment extends Fragment  {
                 readyButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        addMarkLayout.setVisibility(View.GONE);
-                        mapItemLayout.setVisibility(View.VISIBLE);
                         bottomSheetBehavior.setDraggable(true);
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-
-
+                        addMarkLayout.setVisibility(View.GONE);
+                        mapItemLayout.setVisibility(View.VISIBLE);
+                        m.setVisible(false);
+                        IS_ADDING_POINT = false;
+                        Intent intent = new Intent(getActivity(), AddMarkActivity.class);
+                        intent.putExtra("X", m.getGeometry().getLatitude());
+                        intent.putExtra("Y", m.getGeometry().getLongitude());
+                        startActivity(intent);
                     }
                 });
 

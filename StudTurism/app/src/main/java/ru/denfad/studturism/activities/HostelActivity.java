@@ -12,9 +12,9 @@ import android.widget.ImageButton;
 
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
-import ru.denfad.studturism.BookFragment;
-import ru.denfad.studturism.HostelFragment;
-import ru.denfad.studturism.PricesFragment;
+import ru.denfad.studturism.fragments.BookFragment;
+import ru.denfad.studturism.fragments.HostelFragment;
+import ru.denfad.studturism.fragments.PricesFragment;
 import ru.denfad.studturism.R;
 
 public class HostelActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package ru.denfad.studturism;
+package ru.denfad.studturism.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,10 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.tabs.TabLayout;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
@@ -32,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.denfad.studturism.Model.NewsPost;
+import ru.denfad.studturism.R;
 import ru.denfad.studturism.Sevice.MainService;
 import ru.denfad.studturism.databinding.ActivityMainBinding;
 

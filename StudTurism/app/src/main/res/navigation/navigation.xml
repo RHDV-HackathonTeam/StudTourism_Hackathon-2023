@@ -7,24 +7,24 @@
 
     <fragment
         android:id="@+id/hostels"
-        android:name="ru.denfad.studturism.HostelsFragment"
+        android:name="ru.denfad.studturism.fragments.HostelsFragment"
         android:label="fragment_hostels"
         tools:layout="@layout/fragment_hostels" />
 
     <fragment
         android:id="@+id/news"
-        android:name="ru.denfad.studturism.NewsFragment"
+        android:name="ru.denfad.studturism.fragments.NewsFragment"
         android:label="fragment_news"
         tools:layout="@layout/fragment_news" />
 
     <fragment
         android:id="@+id/profile"
-        android:name="ru.denfad.studturism.ProfileFragment"
+        android:name="ru.denfad.studturism.fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/map"
-        android:name="ru.denfad.studturism.MapFragment"
+        android:name="ru.denfad.studturism.fragments.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
 </navigation>

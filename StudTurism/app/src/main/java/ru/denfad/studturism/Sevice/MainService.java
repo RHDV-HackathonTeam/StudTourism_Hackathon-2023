@@ -112,4 +112,8 @@ return posts;
         return userPoints;
     }
 
+    public void addUserPoint(UserPoint userPoint) {
+        userPoints.add(userPoint);
+    }
+
 }

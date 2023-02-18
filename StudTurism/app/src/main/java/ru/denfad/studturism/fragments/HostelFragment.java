@@ -1,4 +1,4 @@
-package ru.denfad.studturism;
+package ru.denfad.studturism.fragments;
 
 import android.os.Bundle;
 
@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ru.denfad.studturism.Model.Hostel;
+import ru.denfad.studturism.R;
 import ru.denfad.studturism.Sevice.MainService;
 
 /**

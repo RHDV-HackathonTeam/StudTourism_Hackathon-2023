@@ -1,8 +1,6 @@
-package ru.denfad.studturism;
+package ru.denfad.studturism.fragments;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -31,7 +29,7 @@ import java.util.List;
 
 import ru.denfad.studturism.Model.Book;
 import ru.denfad.studturism.Model.NewsPost;
-import ru.denfad.studturism.Model.Price;
+import ru.denfad.studturism.R;
 import ru.denfad.studturism.Sevice.MainService;
 
 

@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(binding.navigation, navController);
 
+        if(getIntent().getBooleanExtra("from_map", false)) navController.navigate(R.id.map);
 
     }
 
