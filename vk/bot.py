@@ -11,4 +11,5 @@ bot = Bot(
     labeler=labeler,
     state_dispenser=state_dispenser,
 )
+
 bot.run_forever()
