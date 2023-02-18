@@ -1,5 +1,9 @@
-from server.config import db
+from server.config import db, app
 from .HotelModel import HotelModel
+
+# import os,sys
+# sys.path.insert(1, os.path.join(sys.path[0], '../../'))
+# from config import app, db
 
 class ServicesHotel(db.Model):
     __tablename__ = 'hotelservices'
@@ -14,13 +18,20 @@ class ServicesHotel(db.Model):
 
     def __init__(
             self,
+            hotel,
             service,
             price,
             description
     ):
-        self.service = service
-        self.price = price
-        self.description = description
+        with app.app_context():
+            self.service = service
+            self.price = price
+            self.description = description
+
+            hotel.hotelservices.append(self)
+            current_db_sessions = db.object_session(hotel)
+            current_db_sessions.add(hotel)
+            current_db_sessions.commit()
 
     def __repr__(self):
         return f"<ServiceHotel {self.service}>"

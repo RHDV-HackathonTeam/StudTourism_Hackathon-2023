@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, Blueprint
 from server.config import db, app
 from server.models.Events import EventModel
 
@@ -7,8 +7,11 @@ from server.models.Events import EventModel
 # from config import app, db
 # from models.Events import EventModel
 
-@app.route('/event', methods=['POST', 'GET'])
-def handle_cars():
+event = Blueprint('event_router', __name__)
+
+
+@event.route('/event', methods=['POST', 'GET'])
+def handle_events():
     if request.method == 'POST':
         if request.is_json:
             data = request.get_json()
@@ -28,3 +31,4 @@ def handle_cars():
             return {"message": f"Event {newEvent.track} has been created successfully."}
         else:
             return {"error": "The request payload is not in JSON format"}
+

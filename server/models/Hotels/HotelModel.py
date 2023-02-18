@@ -1,4 +1,8 @@
-from server.config import db
+from server.config import db, app
+
+# import os,sys
+# sys.path.insert(1, os.path.join(sys.path[0], '../../'))
+# from config import app, db
 
 class HotelModel(db.Model):
     __tablename__ = 'hotel'
@@ -36,20 +40,24 @@ class HotelModel(db.Model):
             phone,
             email
     ):
-        self.hostel = hostel
-        self.university = university
-        self.website = website
-        self.picture_url = picture_url
-        self.region = region
-        self.city = city
-        self.nutrition = nutrition
-        self.address = address
-        self.period = period
-        self.conditions_for_organizations = conditions_for_organizations
-        self.conditions_for_students = conditions_for_students
-        self.organization = organization
-        self.phone = phone
-        self.email = email
+        with app.app_context():
+            self.hostel = hostel
+            self.university = university
+            self.website = website
+            self.picture_url = picture_url
+            self.region = region
+            self.city = city
+            self.nutrition = nutrition
+            self.address = address
+            self.period = period
+            self.conditions_for_organizations = conditions_for_organizations
+            self.conditions_for_students = conditions_for_students
+            self.organization = organization
+            self.phone = phone
+            self.email = email
+
+            db.session.add(self)
+            db.session.commit()
 
     def __repr__(self):
         return f"<Hotel {self.hostel}>"
