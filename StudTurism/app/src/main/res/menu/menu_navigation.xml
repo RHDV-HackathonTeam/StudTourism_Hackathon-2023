@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Гостиницы" android:icon="@drawable/ic_hostel" android:id="@+id/hostels"/>
+    <item android:title="Новости" android:icon="@drawable/review" android:id="@+id/news"/>
+    <item android:title="Профиль" android:icon="@drawable/ic_person" android:id="@+id/profile"/>
+    <item android:title="Карта" android:icon="@drawable/ic_map" android:id="@+id/map"/>
+</menu>
