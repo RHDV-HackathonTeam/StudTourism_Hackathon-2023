@@ -1,4 +1,4 @@
-package ru.denfad.studturism;
+package ru.denfad.studturism.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,8 @@ import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.map.CameraPosition;
 import com.yandex.mapkit.mapview.MapView;
+
+import ru.denfad.studturism.R;
 
 public class RegistrationActivity extends AppCompatActivity {
 

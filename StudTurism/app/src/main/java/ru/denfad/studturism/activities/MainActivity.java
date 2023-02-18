@@ -1,4 +1,4 @@
-package ru.denfad.studturism;
+package ru.denfad.studturism.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.yandex.mapkit.MapKitFactory;
 
+import ru.denfad.studturism.R;
 import ru.denfad.studturism.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {

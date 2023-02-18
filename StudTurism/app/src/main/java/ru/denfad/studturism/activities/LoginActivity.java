@@ -1,4 +1,4 @@
-package ru.denfad.studturism;
+package ru.denfad.studturism.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.android.material.textfield.TextInputEditText;
+
+import ru.denfad.studturism.R;
 
 public class LoginActivity extends AppCompatActivity {
 

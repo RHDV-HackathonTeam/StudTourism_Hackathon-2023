@@ -1,19 +1,17 @@
-package ru.denfad.studturism;
-
-import static android.location.LocationManager.GPS_PROVIDER;
+package ru.denfad.studturism.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 
 import com.yandex.mapkit.MapKitFactory;
+
+import ru.denfad.studturism.R;
 
 public class SplashActivity extends AppCompatActivity {
 
