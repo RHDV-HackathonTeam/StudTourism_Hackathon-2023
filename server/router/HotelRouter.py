@@ -187,30 +187,81 @@ def hotel_filter():
         if data['flat_type'] is not None:
             valid_obj = RatesHotelModel.query.filter(RatesHotelModel.room_type == data.get('flat_type')).all()
             for obj in valid_obj:
-                valid_hotels_by_rate.append(obj)
+                valid_hotels_by_rate.append(obj.hotel_id)
         else:
             pass
 
         if data['bed_count'] is not None:
-            valid_hotels_by_service = RatesHotelModel.query.filter(RatesHotelModel.room_type == data.get('flat_type')).all()
-            for obj in valid_hotels_by_service:
-                valid_hotels_by_service.append(obj)
+            valid_obj = RatesHotelModel.query.filter(RatesHotelModel.bed_count == data.get('bed_count')).all()
+            for obj in valid_obj:
+                valid_hotels_by_service.append(obj.hotel_id)
         else:
             pass
 
+        valid_hotels = list(set(valid_hotels_by_rate) | set(valid_hotels_by_service))
+
+        output = list()
+
+        for i in valid_hotels:
+            hotels = HotelModel.query.filter_by(id=i)\
+                .filter(HotelModel.region == data.get('region') if data['region'] is not None else HotelModel.region) \
+                .filter(HotelModel.city == data.get('city') if data['city'] is not None else HotelModel.city) \
+                .filter(HotelModel.nutrition == data.get('food') if data['food'] is not None else HotelModel.nutrition) \
+                .first()
+
+            if hotels is None:
+                continue
+
+            hotel = {
+                "id": hotels.id,
+                "hostel": hotels.hostel,
+                "university": hotels.university,
+                "website": hotels.website,
+                "picture_url": hotels.picture_url,
+                "region": hotels.region,
+                "city": hotels.city,
+                "nutrition": hotels.nutrition,
+                "address": hotels.address,
+                "period": hotels.period,
+                "conditions_for_organizations": hotels.conditions_for_organizations,
+                "conditions_for_students": hotels.conditions_for_students,
+                "organization": hotels.organization,
+                "phone": hotels.phone,
+                "email": hotels.email,
+                "rates": list(),
+                "services": list(),
+                "href": hotels.href,
+            }
+            hotelRates = RatesHotelModel.query.filter(RatesHotelModel.hotel_id == hotels.id).all()
+
+            allrates = list()
+            for hr in hotelRates:
+                rates = {
+                    "room_type": hr.room_type,
+                    "count": hr.count,
+                    "price": hr.price,
+                    "description": hr.description,
+                    "bed_count": hr.bed_count
+                }
+                allrates.append(rates)
+
+            hotelServices = ServicesHotel.query.filter(RatesHotelModel.hotel_id == hotels.id).all()
+
+            allservices = list()
+            for hs in hotelServices:
+                services = {
+                    "service": hs.service,
+                    "price": hs.price,
+                    "description": hs.description
+                }
+                allservices.append(services)
+
+            hotel['rates'] = allrates
+            hotel['services'] = allservices
+
+            output.append(hotel)
 
 
-        print(valid_hotels_by_rate)
-        print(valid_hotels_by_service)
 
-
-        # hotels = HotelModel.query.filter(HotelModel.id is not None)\
-        #     .filter(HotelModel.region == data['region']) \
-        #     .filter(HotelModel.city == data['city']) \
-        #     .filter(HotelModel.nutrition == data['food']) \
-        #     .all()
-        #
-        # print(hotels)
-
-        return 'True'
+        return output
 
