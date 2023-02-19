@@ -1,12 +1,13 @@
 from vkbottle.bot import BotLabeler,MessageEvent, Message, rules
 from vkbottle import BaseStateGroup, GroupEventType
+from bot import photo_uploader
 
 from database import dbworker as db
 from data import strings as mp
 from data import keybords as kb
 from config import api, state_dispenser
 from utils import utils
-
+import aiohttp
 base_labeler = BotLabeler()
 base_labeler.vbml_ignore_case = True
 base_labeler.auto_rules = [rules.PeerRule(from_chat=False)]
@@ -16,12 +17,22 @@ class States(BaseStateGroup):
 
 @base_labeler.message(text="Мероприятия")
 async def check_events(message: Message):
-    # title = data["title"]
-    # pic_url = data["picture_url"]
-    # text = data["text"]
-    # tags = data["tags"]
-    # await bot.send_photo(chat_id=message.chat.id, photo=pic_url, caption=text)
-    pass
+    async with aiohttp.ClientSession() as session:
+        async with session.get('https://66ec-2a00-1fa0-4a46-2469-7a30-9ca6-609b-b91.eu.ngrok.io/news') as resp:
+            data = await resp.json()
+            for i in data:
+                title = i['title']
+                pic_url = i["picture_url"]
+                text = i["text"]
+                tags = i["tags"]
+                caption = title + "\n" + text + "\n"
+                for tag in tags:
+                    caption += tag + " "
+                photo = await photo_uploader.upload(
+                    file_source=pic_url,
+                    peer_id=message.peer_id,
+                )
+                await message.answer(attachment=photo, message=caption[:1024])
 
 @base_labeler.message(text="Настройки")
 async def change_config(message: Message):
@@ -35,8 +46,7 @@ async def change_config(message: Message):
 
 @base_labeler.message(text="Пригласить")
 async def invite_friends(message: Message):
-    pass
-
+    message.answer(message=mp.moc_string)
 @base_labeler.message(text="Статус")
 async def check_status(message: Message):
     check_member = await api.groups.is_member(group_id=message.group_id,user_id=message.from_id)

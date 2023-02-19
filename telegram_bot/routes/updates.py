@@ -1,6 +1,6 @@
 from aiohttp.web_request import Request
 from aiohttp.web_response import json_response
-from database import dbworker as db, Users
+from database import dbworker as db
 from aiogram import Bot
 
 async def check_data_handler(request: Request):

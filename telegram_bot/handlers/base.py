@@ -11,7 +11,8 @@ from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.context import FSMContext
 from aiogram.types.callback_query import CallbackQuery
 from aiogram import F
-
+from aiogram.types import URLInputFile
+import aiohttp
 class Form(StatesGroup):
     check_status = State()
 
@@ -19,12 +20,21 @@ base_router = Router()
 
 @base_router.message(Text(text='Мероприятия'))
 async def events(message: types.Message):
-    # title = data["title"]
-    # pic_url = data["picture_url"]
-    # text = data["text"]
-    # tags = data["tags"]
-    # await bot.send_photo(chat_id=message.chat.id, photo=pic_url, caption=text)
-    pass
+    async with aiohttp.ClientSession() as session:
+        async with session.get('https://66ec-2a00-1fa0-4a46-2469-7a30-9ca6-609b-b91.eu.ngrok.io/news') as resp:
+            data = await resp.json()
+            for i in data:
+                title = i['title']
+                pic_url = i["picture_url"]
+                text = i["text"]
+                tags = i["tags"]
+                caption = title + "\n" + text + "\n"
+                for tag in tags:
+                    caption += tag + " "
+                image = URLInputFile(
+                    pic_url
+                )
+                await bot.send_photo(chat_id=message.chat.id, photo=image, caption=caption[:1024])
 
     
 @base_router.message(Text(text="Настройки"))
@@ -48,7 +58,7 @@ async def back_move(query: CallbackQuery, callback_data: kb.Moves, bot: Bot):
 
 @base_router.message(Text(text='Пригласить'))
 async def invite_friend(message: types.Message):
-    await bot.send_message(chat_id=message.chat.id, text=mp.hello_string, reply_markup=kb.base_keyboard)
+    await bot.send_message(chat_id=message.chat.id, text=mp.moc_string, reply_markup=kb.base_keyboard)
 
 @base_router.message(Text(text='Статус'))
 async def check_status(message: types.Message, state: FSMContext):

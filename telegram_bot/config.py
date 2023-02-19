@@ -8,7 +8,7 @@ from database import dbworker as db
 from utils import user_not_subcription
 
 API_TOKEN = '6007918165:AAHnKCElNmchx6xk7KxlXUnTDrIHTJ-Uodc'
-WEBHOOK_HOST = 'https://698f-185-82-178-72.eu.ngrok.io'
+WEBHOOK_HOST = 'https://8af2-185-82-178-67.eu.ngrok.io'
 WEBHOOK_PATH = ''
 APP_BASE_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
 MAIN_CHAT_ID = -1001838386158
