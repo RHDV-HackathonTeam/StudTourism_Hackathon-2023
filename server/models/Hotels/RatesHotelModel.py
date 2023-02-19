@@ -9,11 +9,11 @@ class RatesHotelModel(db.Model):
     __tablename__ = 'hotelrates'
 
     id = db.Column(db.Integer, primary_key=True)
-    room_type = db.Column(db.String(), nullable=False)
-    bed_count = db.Column(db.String(), nullable=False)
-    count = db.Column(db.String(), nullable=False)
-    price = db.Column(db.String(), nullable=False)
-    description = db.Column(db.String(), nullable=False)
+    room_type = db.Column(db.String(), nullable=True)
+    bed_count = db.Column(db.String(), nullable=True)
+    count = db.Column(db.String(), nullable=True)
+    price = db.Column(db.String(), nullable=True)
+    description = db.Column(db.String(), nullable=True)
 
     hotel_id = db.Column(db.Integer, db.ForeignKey('hotel.id'), nullable=False)
     hotel = db.relationship('HotelModel', backref=db.backref('hotelrates', lazy=True))

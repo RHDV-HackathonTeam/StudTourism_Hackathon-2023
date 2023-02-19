@@ -4,10 +4,10 @@ class ReviewModel(db.Model):
     __tablename__ = 'review'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(), nullable=False)
-    text = db.Column(db.String(), nullable=False)
-    likes = db.Column(db.Integer(), nullable=False)
-    imgs_refs = db.Column(db.PickleType(), nullable=False)
+    username = db.Column(db.String(), nullable=True)
+    text = db.Column(db.String(), nullable=True)
+    likes = db.Column(db.String(), nullable=True)
+    imgs_refs = db.Column(db.PickleType(), nullable=True)
 
     def __init__(
             self,

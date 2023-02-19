@@ -4,12 +4,12 @@ class MarksModel(db.Model):
     __tablename__ = 'marks'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(), nullable=False)
-    text = db.Column(db.String(), nullable=False)
-    likes = db.Column(db.Integer(), nullable=False)
-    imgs_refs = db.Column(db.PickleType(), nullable=False)
-    longitude = db.Column(db.String(), nullable=False)
-    latitude = db.Column(db.String(), nullable=False)
+    username = db.Column(db.String(), nullable=True)
+    text = db.Column(db.String(), nullable=True)
+    likes = db.Column(db.String(), nullable=True)
+    imgs_refs = db.Column(db.PickleType(), nullable=True)
+    longitude = db.Column(db.String(), nullable=True)
+    latitude = db.Column(db.String(), nullable=True)
 
     def __init__(
             self,

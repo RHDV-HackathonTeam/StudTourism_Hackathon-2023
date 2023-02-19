@@ -11,15 +11,15 @@ class EventModel(db.Model):
     __tablename__ = 'event'
 
     id = db.Column(db.Integer, primary_key=True)
-    track = db.Column(db.String(), nullable=False)
-    href = db.Column(db.String(), nullable=False)
-    specialization = db.Column(db.String(), nullable=False)
-    price = db.Column(db.String(), nullable=False)
-    picture_url = db.Column(db.String(), nullable=False)
-    date = db.Column(db.String(), nullable=False)
-    website = db.Column(db.String(), nullable=False)
-    organization = db.Column(db.String(), nullable=False)
-    region = db.Column(db.String(), nullable=False)
+    track = db.Column(db.String(), nullable=True)
+    href = db.Column(db.String(), nullable=True)
+    specialization = db.Column(db.String(), nullable=True)
+    price = db.Column(db.String(), nullable=True)
+    picture_url = db.Column(db.String(), nullable=True)
+    date = db.Column(db.String(), nullable=True)
+    website = db.Column(db.String(), nullable=True)
+    organization = db.Column(db.String(), nullable=True)
+    region = db.Column(db.String(), nullable=True)
 
     def __init__(
             self,

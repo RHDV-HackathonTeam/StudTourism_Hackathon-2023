@@ -7,28 +7,32 @@ user = Blueprint('user_router', __name__)
 @user.route('/users', methods=['POST'])
 def register_user():
     if request.method == 'POST':
-        if request.is_json:
+        try:
+            if request.is_json:
 
-            data = request.get_json()
-            newUser = UserModel(
-                username=data['username'],
-                experience=data['experience'],
-                role=data['role'],
-                name=data['name'],
-                surname=data['surname'],
-                family_name=data['family_name'],
-                email=data['email'],
-                password=data['password'],
-                ref_link=data['ref_link'],
-                notifications=data['notifications'],
-            )
+                data = request.get_json()
+                newUser = UserModel(
+                    username=data['username'],
+                    experience=data['experience'],
+                    role=data['role'],
+                    name=data['name'],
+                    surname=data['surname'],
+                    family_name=data['family_name'],
+                    email=data['email'],
+                    password=data['password'],
+                    ref_link=data['ref_link'],
+                    notifications=data['notifications'],
+                )
 
-            db.session.add(newUser)
-            db.session.commit()
+                db.session.add(newUser)
+                db.session.commit()
 
-            return newUser.username
-        else:
-            return {"error": "The request payload is not in JSON format"}
+                return newUser.username
+            else:
+                return {"error": "The request payload is not in JSON format"}
+
+        except Exception as e:
+            return "username taken"
 
 @user.route('/user/<username>', methods=['GET', 'PATCH'])
 def user_by_id(username):

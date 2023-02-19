@@ -4,14 +4,15 @@ class TravelModel(db.Model):
     __tablename__ = 'travel'
 
     id = db.Column(db.Integer, primary_key=True)
-    fio = db.Column(db.String(), nullable=False)
-    guest_count = db.Column(db.String(), nullable=False)
-    entry = db.Column(db.String(), nullable=False)
-    depart = db.Column(db.String(), nullable=False)
-    phone_number = db.Column(db.String(), nullable=False)
-    email = db.Column(db.String(), nullable=False)
-    username = db.Column(db.String(), nullable=False)
-    status = db.Column(db.String(), nullable=False)
+    fio = db.Column(db.String(), nullable=True)
+    guest_count = db.Column(db.String(), nullable=True)
+    entry = db.Column(db.String(), nullable=True)
+    depart = db.Column(db.String(), nullable=True)
+    phone_number = db.Column(db.String(), nullable=True)
+    email = db.Column(db.String(), nullable=True)
+    username = db.Column(db.String(), nullable=True)
+    hostel_id = db.Column(db.String(), nullable=True)
+    status = db.Column(db.String(), nullable=True)
 
     def __init__(
             self,
@@ -22,7 +23,8 @@ class TravelModel(db.Model):
             phone_number,
             email,
             username,
-            status
+            status,
+            hostel_id
     ):
         with app.app_context():
             self.fio = fio
@@ -33,6 +35,7 @@ class TravelModel(db.Model):
             self.email = email
             self.username = username
             self.status = status
+            self.hostel_id = hostel_id
 
             db.session.add(self)
             db.session.commit()

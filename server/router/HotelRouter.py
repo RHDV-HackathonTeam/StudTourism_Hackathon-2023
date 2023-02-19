@@ -84,32 +84,32 @@ def handle_hotels():
                 "rates": list(),
                 "services": list()
             }
-            hotelRates = RatesHotelModel.query.filter(RatesHotelModel.hotel_id == h.id).all()
-
-            allrates = list()
-            for hr in hotelRates:
-                rates = {
-                    "room_type": hr.room_type,
-                    "count": hr.count,
-                    "price": hr.price,
-                    "description": hr.description,
-                    "bed_count": hr.bed_count,
-                }
-                allrates.append(rates)
-
-            hotelServices = ServicesHotel.query.filter(RatesHotelModel.hotel_id == h.id).all()
-
-            allservices = list()
-            for hs in hotelServices:
-                services = {
-                    "service": hs.service,
-                    "price": hs.price,
-                    "description": hs.description
-                }
-                allservices.append(services)
-
-            hotel['rates'] = allrates
-            hotel['services'] = allservices
+            # hotelRates = RatesHotelModel.query.filter(RatesHotelModel.hotel_id == h.id).all()
+            #
+            # allrates = list()
+            # for hr in hotelRates:
+            #     rates = {
+            #         "room_type": hr.room_type,
+            #         "count": hr.count,
+            #         "price": hr.price,
+            #         "description": hr.description,
+            #         "bed_count": hr.bed_count,
+            #     }
+            #     allrates.append(rates)
+            #
+            # hotelServices = ServicesHotel.query.filter(RatesHotelModel.hotel_id == h.id).all()
+            #
+            # allservices = list()
+            # for hs in hotelServices:
+            #     services = {
+            #         "service": hs.service,
+            #         "price": hs.price,
+            #         "description": hs.description
+            #     }
+            #     allservices.append(services)
+            #
+            # hotel['rates'] = allrates
+            # hotel['services'] = allservices
 
             all_hotels.append(hotel)
 
@@ -138,13 +138,13 @@ def handle_hotel(id):
             "organization": hotels.organization,
             "phone": hotels.phone,
             "email": hotels.email,
-            "rates": list(),
-            "services": list(),
+            "rates": [],
+            "services": [],
             "href": hotels.href,
         }
         hotelRates = RatesHotelModel.query.filter(RatesHotelModel.hotel_id == hotels.id).all()
 
-        allrates = list()
+        allrates = []
         for hr in hotelRates:
             rates = {
                 "room_type": hr.room_type,
@@ -157,7 +157,7 @@ def handle_hotel(id):
 
         hotelServices = ServicesHotel.query.filter(RatesHotelModel.hotel_id == hotels.id).all()
 
-        allservices = list()
+        allservices = []
         for hs in hotelServices:
             services = {
                 "service": hs.service,

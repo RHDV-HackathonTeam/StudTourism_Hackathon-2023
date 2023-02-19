@@ -4,16 +4,16 @@ class UserModel(db.Model):
     __tablename__ = 'user'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(), nullable=False)
-    experience = db.Column(db.String(), nullable=False)
-    role = db.Column(db.String(), nullable=False)
-    name = db.Column(db.String(), nullable=False)
-    surname = db.Column(db.String(), nullable=False)
-    family_name = db.Column(db.String(), nullable=False)
-    email = db.Column(db.String(), nullable=False)
-    password = db.Column(db.String(), nullable=False)
-    ref_link = db.Column(db.String(), nullable=False)
-    notifications = db.Column(db.PickleType(), nullable=False)
+    username = db.Column(db.String(), nullable=True)
+    experience = db.Column(db.String(), nullable=True)
+    role = db.Column(db.String(), nullable=True)
+    name = db.Column(db.String(), nullable=True)
+    surname = db.Column(db.String(), nullable=True)
+    family_name = db.Column(db.String(), nullable=True)
+    email = db.Column(db.String(), nullable=True)
+    password = db.Column(db.String(), nullable=True)
+    ref_link = db.Column(db.String(), nullable=True)
+    notifications = db.Column(db.PickleType(), nullable=True)
 
     def __init__(
             self,
