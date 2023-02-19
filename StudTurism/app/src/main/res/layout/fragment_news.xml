@@ -29,16 +29,19 @@
         app:tabSelectedTextColor="@color/purple_500">
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/news"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Актуальное" />
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/reviews"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Рецензии" />
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/events"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="События" />

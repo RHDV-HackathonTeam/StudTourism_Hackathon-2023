@@ -1,11 +1,14 @@
 package ru.denfad.studturism.fragments;
 
 import android.app.DatePickerDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +19,15 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import ru.denfad.studturism.Model.Book;
 import ru.denfad.studturism.Model.Hostel;
 import ru.denfad.studturism.R;
 import ru.denfad.studturism.Sevice.MainService;
+import ru.denfad.studturism.Sevice.NetworkService;
 import ru.tinkoff.decoro.MaskImpl;
 import ru.tinkoff.decoro.slots.PredefinedSlots;
 import ru.tinkoff.decoro.watchers.FormatWatcher;
@@ -33,6 +41,8 @@ public class BookFragment extends Fragment {
     TextInputEditText visit;
     TextInputEditText exit;
     MainService service;
+    private SharedPreferences mSharedPreferences;
+
 
     public BookFragment(int hostelId) {
         // Required empty public constructor
@@ -92,12 +102,29 @@ public class BookFragment extends Fragment {
         );
         phoneMask.installOn(phone);
 
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         Button book = rootView.findViewById(R.id.book_button);
         book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Hostel h = service.findHostel(hostelId);
-                Book b = new Book(visit.getText().toString(), exit.getText().toString(), h.city, h.hostel);
+
+                Book b = new Book(String.valueOf(hostelId), fio.getText().toString(), guestCount.getText().toString(), visit.getText().toString(), exit.getText().toString(), phone.getText().toString(), email.getText().toString(), mSharedPreferences.getString("username", "1"),  null);
+                Log.e("Booking", mSharedPreferences.getString("username", "1"));
+                NetworkService.getInstance().getJSONApi()
+                        .book(b)
+                        .enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                Log.e("Server", response.message());
+                                Log.e("Server", response.toString());
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                t.printStackTrace();
+                            }
+                        });
+
                 service.addBook(b);
             }
         });

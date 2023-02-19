@@ -34,7 +34,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // По истечении времени, запускаем главный активити, а Splash Screen закрываем
-                if(mSharedPreferences.getString("email","").equals("")){
+                if(mSharedPreferences.getString("username","").equals("")){
                     Intent mainIntent = new Intent(SplashActivity.this, LoginActivity.class);
                     SplashActivity.this.startActivity(mainIntent);
                 }

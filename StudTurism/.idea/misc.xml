@@ -21,6 +21,7 @@
         <entry key="app/src/main/res/drawable/rectangle.xml" value="0.19" />
         <entry key="app/src/main/res/drawable/review.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/text_color.xml" value="0.251" />
+        <entry key="app/src/main/res/drawable/vk_logo.xml" value="0.249" />
         <entry key="app/src/main/res/layout/activity_add_mark.xml" value="0.3972714838792036" />
         <entry key="app/src/main/res/layout/activity_hostel.xml" value="0.3837510803802939" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2864471996579735" />
@@ -33,7 +34,7 @@
         <entry key="app/src/main/res/layout/fragment_book.xml" value="0.3151041666666667" />
         <entry key="app/src/main/res/layout/fragment_hostel.xml" value="0.37983144124348955" />
         <entry key="app/src/main/res/layout/fragment_hostels.xml" value="0.29393115942028986" />
-        <entry key="app/src/main/res/layout/fragment_map.xml" value="0.5115432739257812" />
+        <entry key="app/src/main/res/layout/fragment_map.xml" value="0.4489966555183946" />
         <entry key="app/src/main/res/layout/fragment_news.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_organizations.xml" value="0.29393115942028986" />
         <entry key="app/src/main/res/layout/fragment_prices.xml" value="0.3151041666666667" />

@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Button signIn = findViewById(R.id.sign_in);
         Button registration = findViewById(R.id.registration);
-        TextInputEditText email = findViewById(R.id.email_text);
+        TextInputEditText login = findViewById(R.id.login_text);
         TextInputEditText password = findViewById(R.id.password_text);
 
 
@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SharedPreferences.Editor editor = mSharedPreferences.edit();
-                editor.putString("email", email.getText().toString());
+                editor.putString("username", login.getText().toString());
                 editor.putString("password", password.getText().toString());
                 editor.apply();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));

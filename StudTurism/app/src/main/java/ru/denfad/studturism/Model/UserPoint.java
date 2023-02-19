@@ -3,6 +3,7 @@ package ru.denfad.studturism.Model;
 public class UserPoint {
 
     public int userId;
+
     public double X;
     public double Y;
     public int likeCount = 0;

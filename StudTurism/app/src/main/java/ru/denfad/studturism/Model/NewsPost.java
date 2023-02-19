@@ -1,34 +1,38 @@
 package ru.denfad.studturism.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class NewsPost {
 
-    public int id;
     public String source;
     public String text;
     public String href;
-    public List<Integer> imageIds;
-    public List<String> images;
+    @SerializedName("picture_url")
+    public String pictureUrl;
     public int likesCount;
-
-    public NewsPost(String text, List<Integer> imageIds, int likesCount) {
-        this.text = text;
-        this.imageIds= imageIds;
-        this.likesCount = likesCount;
-    }
+    public String title;
 
     public NewsPost() {
 
     }
 
-    public NewsPost(int id, String source, String text, String href, List<String> images, int likesCount) {
-        this.id = id;
+    public NewsPost(String source, String text, String href, String pictureUrl, int likesCount, String title) {
         this.source = source;
         this.text = text;
         this.href = href;
-        this.images = images;
+        this.pictureUrl = pictureUrl;
         this.likesCount = likesCount;
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getHref() {
@@ -39,20 +43,12 @@ public class NewsPost {
         this.href = href;
     }
 
-    public List<String> getImages() {
-        return images;
+    public String getPictureUrl() {
+        return pictureUrl;
     }
 
-    public void setImages(List<String> images) {
-        this.images = images;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
     }
 
     public String getSource() {
@@ -71,13 +67,7 @@ public class NewsPost {
         this.text = text;
     }
 
-    public List<Integer> getImageIds() {
-        return imageIds;
-    }
 
-    public void setImageIds(List<Integer> imageIds) {
-        this.imageIds = imageIds;
-    }
 
     public int getLikesCount() {
         return likesCount;

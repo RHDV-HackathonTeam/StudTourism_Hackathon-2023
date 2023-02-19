@@ -230,6 +230,7 @@ public class HostelsFragment extends Fragment {
                                 Log.e("Server", response.toString());
 
                                 hostels = response.body();
+                                Log.e("Server", new Gson().toJson(hostels.get(0).rates));
                                 if(hostels != null) {
                                     HostelAdapter adapter = new HostelAdapter();
                                     list.setAdapter(adapter);
@@ -284,11 +285,18 @@ public class HostelsFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull HostelViewHolder holder, int position) {
             Hostel h = hostels.get(position);
-
             holder.name.setText(h.hostel);
 
+            Log.e("Hostel", new Gson().toJson(h.rates));
             Picasso.get().load(h.pictureUrl).into(holder.image);
-            holder.price.setText(h.rates.get(0).price + " ₽");
+            try {
+                holder.price.setText(h.rates.get(0).price + " ₽");
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                holder.price.setText( "0 ₽");
+            }
+
             holder.town.setText(h.city);
             holder.organization.setText(h.university);
             holder.daysCount.setText(h.period);
