@@ -53,8 +53,9 @@ class Parser:
                     def_btn_box = WebDriverWait(self.driver, 3).until(source)
                     def_btn_box[banner_number].click()
                     time.sleep(0.5)
-                    res = self.get_source_hostel(self.driver.page_source)
-                    requests.post(url=self.URL, json=res)
+                    link = f'https://студтуризм.рф/events/{self.driver.current_url.split("/")[-1]}'
+                    res = self.get_source_hostel(self.driver.page_source, link)
+                    # requests.post(url=self.URL, json=res)
                     res_list.append(res)
                     self.driver.back()
                     print(f'Спарсил объявлений {(page_number-1)*4+banner_number+1} из {n}')
@@ -63,9 +64,10 @@ class Parser:
         with open('res/hostels.json', 'w', encoding='utf-8') as file:
             json.dump(res_list, file, indent=4, ensure_ascii=False)
 
-    def get_source_hostel(self, html_source):
+    def get_source_hostel(self, html_source, link):
         result = {
             "hostel": None,
+            "href": link,
             "university": None,
             "website": None,
             "picture_url": None,
@@ -93,7 +95,15 @@ class Parser:
             rates, services = [], []
             rates = tables[0].find_all('div', class_='sc-jRQBWg sc-fmBCVi fFxOzt hbQFwJ table_tr')
             rates = [list(map(lambda x: x.get_text(), i.find_all('div')[:4])) for i in rates]
-            result['rates'] = [{'room_type': i[0], 'count': i[1], 'price': i[2], 'description': i[3]} for i in rates]
+            mass = []
+            for i in rates:
+                js = {'room_type': None, 'bed_count': None, 'count': None, 'price': None, 'description': None}
+                if i[0] == 'Не типовое размещение':
+                    js = {'room_type': i[0], 'bed_count': None, 'count': i[1], 'price': i[2], 'description': i[3]}
+                else:
+                    js = {'room_type': i[0].split(' ')[-1], 'bed_count': i[0][0], 'count': i[1], 'price': i[2], 'description': i[3]}
+                mass.append(js)
+            result['rates'] = mass
             try:
                 services = tables[1].find_all('div', class_='sc-jRQBWg sc-fmBCVi fFxOzt hbQFwJ table_tr')
                 services = [list(map(lambda x: x.get_text(), i.find_all('div'))) for i in services]
@@ -149,13 +159,13 @@ class Parser:
                     time.sleep(0.5)
                     link = f'https://студтуризм.рф/events/{self.driver.current_url.split("/")[-1]}'
                     res = self.get_source_event(self.driver.page_source, link)
-                    requests.post(url=self.URL, json=res)
+                    # requests.post(url=self.URL, json=res)
                     res_list.append(res)
                     self.driver.back()
                     print(f'Спарсил объявлений {(page_number-1)*4+banner_number+1} из {n}')
                 except Exception as exc:
                     print(f'{exc} in function parse_events')
-        with open('res/events_from_studturizm.json', 'w', encoding='utf-8') as file:
+        with open('res/events.json', 'w', encoding='utf-8') as file:
             json.dump(res_list, file, indent=4, ensure_ascii=False)
 
     def get_source_event(self, html_source, url):
@@ -222,7 +232,7 @@ class Parser:
                     time.sleep(0.4)
                     link = f'https://студтуризм.рф/labs/{self.driver.current_url.split("/")[-1]}'
                     res = self.get_source_labs(self.driver.page_source, link)
-                    requests.post(url=self.URL, json=res)
+                    # requests.post(url=self.URL, json=res)
                     res_list.append(res)
                     self.driver.back()
                     print(f'Спарсил объявлений {(page_number-1)*4+banner_number+1} из {n}')
@@ -319,26 +329,27 @@ class Parser:
             src["picture_url"] = WebDriverWait(self.driver, 10).until(photo).get_attribute('src')
             src["title"] = self.driver.find_element(by=By.XPATH, value='//div[@class="sc-jRQBWg sc-cqJhZP fFxOzt gRKDwp"]/h2').text
             src["text"] = self.driver.find_element(by=By.XPATH, value='//div[@class="sc-eSxRXt gwBiTd"]').text
-            src["tags"] = list(map(lambda x: x.text, self.driver.find_elements(by=By.XPATH, value='//div[@class="sc-hiwPVj kcxzLw"]')))
+            src["tags"] = ' '.join(list(map(lambda x: x.text, self.driver.find_elements(by=By.XPATH, value='//div[@class="sc-hiwPVj kcxzLw"]'))))
             res_list.append(src)
-            requests.post(url=self.URL, json=src)
+            # requests.post(url=self.URL, json=src)
             print(f'Спарсил объявлений {counter} из {count}')
         with open('res/news.json', 'w', encoding='utf-8') as file:
             json.dump(res_list, file, indent=4, ensure_ascii=False)
 
     def parse_all(self):
-        pars.parse_events()
-        time.sleep(2)
+        # pars.parse_events()
+        # time.sleep(2)
         pars.parse_labs()
         time.sleep(2)
-        pars.parse_news()
-        time.sleep(2)
-        pars.parse_hostels()
-        time.sleep(2)
+        # pars.parse_news()
+        # time.sleep(2)
+        # pars.parse_hostels()
+        # time.sleep(2)
+        pass
 
 
 if __name__ == '__main__':
-    pars = Parser(...)
+    pars = Parser('https://66ec-2a00-1fa0-4a46-2469-7a30-9ca6-609b-b91.eu.ngrok.io/science')
     try:
         pars.parse_all()
     except Exception as exc:
