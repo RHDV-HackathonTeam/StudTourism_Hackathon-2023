@@ -25,7 +25,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#9E000000"
+            android:background="#83000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -38,35 +38,37 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="10dp"
+                android:maxLength="40"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/hostel_card_organization"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="15dp"
-                android:text="МГУ"
+                android:paddingHorizontal="15dp"
+                android:text="МГУdfffffffffffffffffffffffffffffffffffffffffffffffffffffffsdfwefwe"
+                android:maxLength="40"
                 android:textColor="@color/white"
-                android:textSize="13sp"
-                android:layout_marginBottom="6dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/hostel_card_name" />
 
             <TextView
                 android:id="@+id/hostel_card_town"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:text="Москва"
+                android:paddingLeft="15dp"
                 android:textColor="@color/white"
-                android:textSize="15sp"
+                android:textSize="13sp"
+                android:maxLength="40"
+                android:layout_marginBottom="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hostel_card_organization" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

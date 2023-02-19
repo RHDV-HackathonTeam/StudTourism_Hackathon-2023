@@ -15,22 +15,28 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ru.denfad.studturism.Model.Price;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import ru.denfad.studturism.Model.Hostel;
+import ru.denfad.studturism.Model.Rate;
 import ru.denfad.studturism.Model.Service;
 import ru.denfad.studturism.R;
 import ru.denfad.studturism.Sevice.MainService;
+import ru.denfad.studturism.Sevice.NetworkService;
 
 
 public class PricesFragment extends Fragment {
 
     int hostelId;
-    List<Price> prices;
+    List<Rate> rates;
     List<Service> services;
+    private Hostel hostel;
 
     public PricesFragment(int hostelId) {
         // Required empty public constructor
         this.hostelId = hostelId;
-        prices = MainService.getInstance().getPricesOfHostel(hostelId);
+        rates = MainService.getInstance().getPricesOfHostel(hostelId);
         services = MainService.getInstance().getServicesOfHostel(hostelId);
     }
 
@@ -50,16 +56,40 @@ public class PricesFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_prices, container, false);
 
+
         RecyclerView priceList = rootView.findViewById(R.id.prices_list);
-        PricesAdapter priceAdapter = new PricesAdapter();
-        priceList.setAdapter(priceAdapter);
-        priceList.setLayoutManager(new LinearLayoutManager(getContext()));
-
         RecyclerView serviceList = rootView.findViewById(R.id.services_list);
-        ServicesAdapter serviceAdapter = new ServicesAdapter();
-        serviceList.setAdapter(serviceAdapter);
-        serviceList.setLayoutManager(new LinearLayoutManager(getContext()));
+        NetworkService.getInstance()
+                .getJSONApi()
+                .getHostel(hostelId)
+                .enqueue(new Callback<Hostel>() {
+                    @Override
+                    public void onResponse(Call<Hostel> call, Response<Hostel> response) {
+                        hostel = response.body();
+                        if(hostel.rates.size()>0) {
+                            PricesAdapter priceAdapter = new PricesAdapter();
+                            priceList.setAdapter(priceAdapter);
+                            priceList.setLayoutManager(new LinearLayoutManager(getContext()));
+                        }
 
+
+                        if(hostel.services.size() > 0) {
+                            ServicesAdapter serviceAdapter = new ServicesAdapter();
+                            serviceList.setAdapter(serviceAdapter);
+                            serviceList.setLayoutManager(new LinearLayoutManager(getContext()));
+                        }
+                        else {
+                            serviceList.setVisibility(View.GONE);
+                            TextView text = rootView.findViewById(R.id.none_service);
+                            text.setVisibility(View.VISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Hostel> call, Throwable t) {
+
+                    }
+                });
         return  rootView;
     }
 
@@ -82,15 +112,15 @@ public class PricesFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull PricesViewHolder holder, int position) {
-            Service s = services.get(position);
-            holder.name.setText(s.name);
+            Service s = hostel.services.get(position);
+            holder.name.setText(s.service);
             holder.price.setText(s.price + " ₽");
             holder.description.setText(s.description);
         }
 
         @Override
         public int getItemCount() {
-            return services.size();
+            return hostel.services.size();
         }
     }
 
@@ -111,15 +141,18 @@ public class PricesFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull PricesViewHolder holder, int position) {
-            Price p = prices.get(position);
-            holder.name.setText(p.name);
-            holder.price.setText(p.price + " ₽");
-            holder.description.setText(p.description);
+
+
+            Rate p = hostel.rates.get(position);
+                holder.name.setText(p.roomType.toUpperCase() + ", колличество кроватей: " + p.bedCount);
+                holder.price.setText(p.price + " ₽");
+                holder.description.setText(p.description);
+
         }
 
         @Override
         public int getItemCount() {
-            return prices.size();
+            return hostel.rates.size();
         }
     }
 

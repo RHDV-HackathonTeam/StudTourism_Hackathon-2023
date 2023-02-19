@@ -22,36 +22,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left|center_vertical"
-                android:text="Федеральный округ"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-                android:id="@+id/federal"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginTop="10dp"
-                app:smsp_errorText=""
-                app:smsp_hintColor="#535353"
-                app:smsp_hint="Федеральный округ"
-                app:smsp_isOutlined="true"
-                app:smsp_multilineError="false" />
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#CFCECE" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 android:gravity="left|center_vertical"
                 android:text="Регион"
                 android:textColor="@color/black"
@@ -153,12 +128,14 @@
                 android:textStyle="bold" />
 
             <RadioGroup
+                android:id="@+id/bed_count"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:id="@+id/difference"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -166,11 +143,12 @@
                     android:button="@android:color/transparent"
                     android:elevation="2dp"
                     android:gravity="center"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:text="Неважно"
                     android:textColor="@color/black" />
 
                 <RadioButton
+                    android:id="@+id/b1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -184,6 +162,7 @@
                     android:textColor="@color/black" />
 
                 <RadioButton
+                    android:id="@+id/b2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -197,6 +176,7 @@
                     android:textColor="@color/black" />
 
                 <RadioButton
+                    android:id="@+id/b3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -210,6 +190,7 @@
                     android:textColor="@color/black" />
 
                 <RadioButton
+                    android:id="@+id/b4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -223,6 +204,7 @@
                     android:textColor="@color/black" />
 
                 <RadioButton
+                    android:id="@+id/b5"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -236,6 +218,7 @@
                     android:textColor="@color/black" />
 
                 <RadioButton
+                    android:id="@+id/b6"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -274,9 +257,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
+                    android:id="@+id/food_type"
                     android:orientation="horizontal">
 
                     <RadioButton
+                        android:id="@+id/f1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
@@ -284,11 +269,12 @@
                         android:button="@android:color/transparent"
                         android:elevation="2dp"
                         android:gravity="center"
-                        android:padding="5dp"
+                        android:paddingHorizontal="15dp"
                         android:text="Без питания"
                         android:textColor="@color/black" />
 
                     <RadioButton
+                        android:id="@+id/f2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
@@ -296,24 +282,25 @@
                         android:button="@android:color/transparent"
                         android:elevation="2dp"
                         android:gravity="center"
-                        android:padding="5dp"
+                        android:paddingHorizontal="15dp"
                         android:text="Завтрак и ужин"
                         android:textColor="@color/black" />
 
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        android:id="@+id/f3"
                         android:layout_margin="5dp"
                         android:background="@drawable/radio_selector"
                         android:button="@android:color/transparent"
                         android:elevation="2dp"
                         android:gravity="center"
-                        android:padding="5dp"
+                        android:paddingHorizontal="15dp"
                         android:text="Полный пансион"
                         android:textColor="@color/black" />
 
                     <RadioButton
+                        android:id="@+id/f4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
@@ -321,7 +308,7 @@
                         android:button="@android:color/transparent"
                         android:elevation="2dp"
                         android:gravity="center"
-                        android:padding="5dp"
+                        android:paddingHorizontal="15dp"
                         android:text="Только завтрак"
                         android:textColor="@color/black" />
 
@@ -351,10 +338,5 @@
 
 
     </ScrollView>
-
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

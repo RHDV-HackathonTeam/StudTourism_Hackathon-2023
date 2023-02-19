@@ -33,7 +33,7 @@ public class AddMarkActivity extends AppCompatActivity {
 
     private static final int READ_EXTERNAL_STORAGE = 200;
     private static final int PICK_IMAGE = 100;
-    private  ImageButton load;
+    private ImageButton load;
     private Uri imageUri;
 
 

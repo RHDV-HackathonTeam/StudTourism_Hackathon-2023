@@ -2,8 +2,7 @@ package ru.denfad.studturism.Model;
 
 public class Book {
 
-    public int id;
-    public int userId;
+
     public int hostelId;
     public String FIO;
     public int guestCount;
@@ -21,8 +20,7 @@ public class Book {
         this.hostel = hostel;
     }
 
-    public Book(int userId, int hostelId, String FIO, int guestCount, String visitDate, String exitDate, String phone, String email, String town, String hostel) {
-        this.userId = userId;
+    public Book(int hostelId, String FIO, int guestCount, String visitDate, String exitDate, String phone, String email, String town, String hostel) {
         this.hostelId = hostelId;
         this.FIO = FIO;
         this.guestCount = guestCount;

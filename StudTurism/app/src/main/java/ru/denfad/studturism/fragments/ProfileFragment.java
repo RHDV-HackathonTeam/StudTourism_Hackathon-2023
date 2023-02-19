@@ -1,6 +1,7 @@
 package ru.denfad.studturism.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -31,13 +33,15 @@ import ru.denfad.studturism.Model.Book;
 import ru.denfad.studturism.Model.NewsPost;
 import ru.denfad.studturism.R;
 import ru.denfad.studturism.Sevice.MainService;
+import ru.denfad.studturism.activities.AddMarkActivity;
+import ru.denfad.studturism.activities.ReviewEditActivity;
 
 
 public class ProfileFragment extends Fragment {
 
-    List<NewsPost> posts;
-    List<Book> books = new ArrayList<>();
-    MainService service;
+    private List<NewsPost> posts;
+    private List<Book> books = new ArrayList<>();
+    private MainService service;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -59,12 +63,12 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         ImageView image = rootView.findViewById(R.id.user_image);
         image.setClipToOutline(true);
 
         RecyclerView profileList = rootView.findViewById(R.id.profile_list);
-       NewsAdapter adapter = new NewsAdapter();
+        NewsAdapter adapter = new NewsAdapter();
         profileList.setAdapter(adapter);
         profileList.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -79,20 +83,25 @@ public class ProfileFragment extends Fragment {
 
         RecyclerView bookList = rootView.findViewById(R.id.book_list);
         BookAdapter bookAdapter = new BookAdapter();
-       bookList.setAdapter(bookAdapter);
+        bookList.setAdapter(bookAdapter);
         bookList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         TextRoundCornerProgressBar progress = rootView.findViewById(R.id.user_progress);
         progress.setProgress(40);
         progress.setProgressText(String.valueOf(40));
 
-       return rootView;
+        Button add = rootView.findViewById(R.id.make_review);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), ReviewEditActivity.class));
+            }
+        });
+        return rootView;
     }
 
 
-    class NewsAdapter extends  RecyclerView.Adapter<NewsViewHolder> {
-
-
+    class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
         @NonNull
         @Override
         public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -117,12 +126,12 @@ public class ProfileFragment extends Fragment {
             view.setItemPreviewLoader(new ItemPreviewLoader() {
                 @Override
                 public void loadItemPreviewInto(@NonNull ImageView imageView, @NonNull CollageItemData collageItemData) {
-                    imageView.setImageDrawable(((CollageItemDrawableData)collageItemData).getDrawable());
+                    imageView.setImageDrawable(((CollageItemDrawableData) collageItemData).getDrawable());
                 }
             });
             List<CollageItemDrawableData> data = new ArrayList<>();
 
-            for(Integer i: p.imageIds) {
+            for (Integer i : p.imageIds) {
                 data.add(new CollageItemDrawableData(getResources().getDrawable(i)));
             }
             view.setItemDatas(data);
@@ -194,8 +203,8 @@ public class ProfileFragment extends Fragment {
         public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
             Book b = books.get(position);
             holder.name.setText(b.hostel);
-            holder.price.setText(b.visitDate + "\n - \n"+b.exitDate);
-            holder.description.setText(b.town+"\n");
+            holder.price.setText(b.visitDate + "\n - \n" + b.exitDate);
+            holder.description.setText(b.town + "\n");
         }
 
         @Override
@@ -208,6 +217,7 @@ public class ProfileFragment extends Fragment {
         TextView name;
         TextView price;
         TextView description;
+
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.price_card_name);

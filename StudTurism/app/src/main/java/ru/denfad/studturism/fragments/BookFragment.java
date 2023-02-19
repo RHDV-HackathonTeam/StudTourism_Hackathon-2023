@@ -97,7 +97,7 @@ public class BookFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Hostel h = service.findHostel(hostelId);
-                Book b = new Book(visit.getText().toString(), exit.getText().toString(), h.town, h.name);
+                Book b = new Book(visit.getText().toString(), exit.getText().toString(), h.city, h.hostel);
                 service.addBook(b);
             }
         });

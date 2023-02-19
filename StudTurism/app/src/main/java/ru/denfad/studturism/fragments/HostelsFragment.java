@@ -2,6 +2,9 @@ package ru.denfad.studturism.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,24 +13,56 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.chivorn.smartmaterialspinner.SmartMaterialSpinner;
+import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.RequestBody;
+import okio.Buffer;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import ru.denfad.studturism.Model.Filter;
 import ru.denfad.studturism.Model.Hostel;
 import ru.denfad.studturism.R;
+import ru.denfad.studturism.Sevice.DownloadImage;
 import ru.denfad.studturism.Sevice.MainService;
+import ru.denfad.studturism.Sevice.NetworkService;
 import ru.denfad.studturism.activities.HostelActivity;
 import ru.denfad.studturism.ui.TopSheetBehavior;
 
 
 public class HostelsFragment extends Fragment {
 
-    private MainService service;
+    private List<Hostel> hostels = new ArrayList<>();
+    private SmartMaterialSpinner<String> regions;
+    private SmartMaterialSpinner<String> federals;
+    private SmartMaterialSpinner<String> towns;
+    private boolean type = true; //false - квартира true - комната
+    private Button flat;
+    private Button room;
+    private  RecyclerView list;
+
 
 
     public HostelsFragment() {
@@ -44,7 +79,6 @@ public class HostelsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        service = MainService.getInstance();
 
     }
 
@@ -59,10 +93,31 @@ public class HostelsFragment extends Fragment {
 
 
 
-        RecyclerView list = rootView.findViewById(R.id.hostels_list);
-        HostelAdapter adapter = new HostelAdapter();
-        list.setAdapter(adapter);
-        list.setLayoutManager(new LinearLayoutManager(getContext()));
+        list = rootView.findViewById(R.id.hostels_list);
+        NetworkService.getInstance()
+                .getJSONApi()
+                .getAllHostels()
+                .enqueue(new Callback<List<Hostel>>() {
+                    @Override
+                    public void onResponse(Call<List<Hostel>> call, Response<List<Hostel>> response) {
+                        Log.e("Server", response.message());
+                        Log.e("Server", response.toString());
+                        hostels = response.body();
+                        if(hostels != null) {
+                            HostelAdapter adapter = new HostelAdapter();
+                            list.setAdapter(adapter);
+                            list.setLayoutManager(new LinearLayoutManager(getContext()));
+                        }
+                        else Log.e("Hostels", "Null hostels");
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Hostel>> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+
 
         ImageButton filter = rootView.findViewById(R.id.filter_button);
         filter.setOnClickListener(new View.OnClickListener() {
@@ -73,37 +128,141 @@ public class HostelsFragment extends Fragment {
         });
 
         Button room = rootView.findViewById(R.id.room);
-        room.setOnClickListener(new View.OnClickListener() {
-            boolean click = false;
-
-            @Override
-            public void onClick(View view) {
-                if(!click) room.setBackgroundColor(getResources().getColor(R.color.purple_700));
-                else room.setBackgroundColor(getResources().getColor(R.color.purple_500));
-                click = !click;
-            }
-        });
-
         Button flat = rootView.findViewById(R.id.flat);
-        flat.setOnClickListener(new View.OnClickListener() {
-            boolean click = false;
+        room.setBackgroundColor(getResources().getColor(R.color.purple_700));
+        room.setOnClickListener(new View.OnClickListener() {
+
 
             @Override
             public void onClick(View view) {
-                if(!click) flat.setBackgroundColor(getResources().getColor(R.color.purple_700));
-                else flat.setBackgroundColor(getResources().getColor(R.color.purple_500));
-                click = !click;
+                if(!type){
+                    room.setBackgroundColor(getResources().getColor(R.color.purple_700));
+                    flat.setBackgroundColor(getResources().getColor(R.color.purple_500));
+                    type = !type;
+                }
+                else {
+                    room.setBackgroundColor(getResources().getColor(R.color.purple_500));
+                    flat.setBackgroundColor(getResources().getColor(R.color.purple_700));
+                    type = !type;
+                }
             }
         });
+
+
+        flat.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View view) {
+                if(type){
+                    room.setBackgroundColor(getResources().getColor(R.color.purple_500));
+                    flat.setBackgroundColor(getResources().getColor(R.color.purple_700));
+                    type = !type;
+                }
+                else {
+                    room.setBackgroundColor(getResources().getColor(R.color.purple_700));
+                    flat.setBackgroundColor(getResources().getColor(R.color.purple_500));
+                    type = !type;
+                }
+            }
+        });
+
+
+
+        regions = rootView.findViewById(R.id.region);
+        regions.setItem(MainService.getInstance().getRegions());
+       regions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+
+
+
+
+       towns = rootView.findViewById(R.id.town);
+        towns.setItem(MainService.getInstance().getTowns());
+        towns.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+
+        RadioGroup bedCount = rootView.findViewById(R.id.bed_count);
+        bedCount.check(R.id.difference);
+
+        RadioGroup food = rootView.findViewById(R.id.food_type);
+        food.check(R.id.f1);
 
         Button applyFilter = rootView.findViewById(R.id.apply_filter);
         applyFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                int id = food.getCheckedRadioButtonId();
+
+                String bed = ((RadioButton)rootView.findViewById(bedCount.getCheckedRadioButtonId())).getText().toString();
+                if(bed.equals("Неважно")) bed = null;
+                String food = ((RadioButton)rootView.findViewById(id)).getText().toString();
+                String flatType = type ? "квартира" : "комната";
+                Filter f = new Filter(regions.getSelectedItem(), towns.getSelectedItem(), flatType, bed, food);
+                Log.e("Filter", f.region + " " + f.city + " " + f.flatType + " "+f.bedCount + " " +f.food);
+                NetworkService.getInstance()
+                        .getJSONApi()
+                        .filter(f)
+                        .enqueue(new Callback<List<Hostel>>() {
+                            @Override
+                            public void onResponse(Call<List<Hostel>> call, Response<List<Hostel>> response) {
+                                Log.e("Server",  bodyToString(call.request().body()));
+                                Log.e("Server", response.message());
+                                Log.e("Server", response.toString());
+
+                                hostels = response.body();
+                                if(hostels != null) {
+                                    HostelAdapter adapter = new HostelAdapter();
+                                    list.setAdapter(adapter);
+                                    list.setLayoutManager(new LinearLayoutManager(getContext()));
+                                }
+                                else Log.e("Hostels", "Null hostels");
+
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<List<Hostel>> call, Throwable t) {
+
+                            }
+                        });
                 TopSheetBehavior.from(sheet).setState(TopSheetBehavior.STATE_COLLAPSED);
             }
         });
         return rootView;
+    }
+
+    private String bodyToString(final RequestBody request) {
+        try {
+            final RequestBody copy = request;
+            final Buffer buffer = new Buffer();
+            if (copy != null)
+                copy.writeTo(buffer);
+            else
+                return "";
+            return buffer.readUtf8();
+        } catch (final IOException e) {
+            return "did not work";
+        }
     }
 
 
@@ -124,14 +283,15 @@ public class HostelsFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull HostelViewHolder holder, int position) {
-            Hostel h = service.getAll().get(position);
+            Hostel h = hostels.get(position);
 
-            holder.name.setText(h.name);
-            holder.image.setImageResource(h.imageId);
-            holder.price.setText(h.price + " ₽");
-            holder.town.setText(h.town);
-            holder.organization.setText(h.organization);
-            holder.daysCount.setText(String.format("От %d до %d дней", h.minDayCount, h.maxDayCount));
+            holder.name.setText(h.hostel);
+
+            Picasso.get().load(h.pictureUrl).into(holder.image);
+            holder.price.setText(h.rates.get(0).price + " ₽");
+            holder.town.setText(h.city);
+            holder.organization.setText(h.university);
+            holder.daysCount.setText(h.period);
             holder.card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -145,7 +305,7 @@ public class HostelsFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return service.getAll().size();
+            return hostels.size();
         }
 
         class HostelViewHolder extends RecyclerView.ViewHolder {
@@ -169,4 +329,6 @@ public class HostelsFragment extends Fragment {
         }
 
     }
-}
+
+
+    }

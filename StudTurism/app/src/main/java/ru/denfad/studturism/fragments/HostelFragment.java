@@ -4,21 +4,23 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import ru.denfad.studturism.Model.Hostel;
 import ru.denfad.studturism.R;
 import ru.denfad.studturism.Sevice.MainService;
+import ru.denfad.studturism.Sevice.NetworkService;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HostelFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HostelFragment extends Fragment {
 
     MainService service = MainService.getInstance();
@@ -46,18 +48,49 @@ public class HostelFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_hostel, container, false);
-        Hostel h = service.findHostel(hostelId);
 
         TextView name = rootView.findViewById(R.id.hostel_name);
-        name.setText(h.name);
         TextView town = rootView.findViewById(R.id.hostel_town);
-        town.setText(h.town);
         TextView organization = rootView.findViewById(R.id.hostel_organization);
-        organization.setText(h.organization);
         ImageView image = rootView.findViewById(R.id.hostel_image);
-        image.setImageResource(h.imageId);
         TextView daysCount = rootView.findViewById(R.id.hostel_day_count);
-       daysCount.setText(String.format("От %d до %d дней", h.minDayCount, h.maxDayCount));
+        TextView dayCount = rootView.findViewById(R.id.hostel_day_count);
+        TextView contact = rootView.findViewById(R.id.hostel_contacts_name);
+        TextView email = rootView.findViewById(R.id.hostel_contacts_mail);
+        TextView orgTerm = rootView.findViewById(R.id.hostel_org_term);
+        TextView indTerm = rootView.findViewById(R.id.hostel_indep_term);
+
+        NetworkService.getInstance()
+                .getJSONApi()
+                .getHostel(hostelId)
+                .enqueue(new Callback<Hostel>() {
+                    @Override
+                    public void onResponse(Call<Hostel> call, Response<Hostel> response) {
+                        Hostel h = response.body();
+                        name.setText(h.hostel);
+                        town.setText(h.city);
+                        organization.setText(h.university);
+                        //image.setImageResource(h.imageId);
+                        daysCount.setText(h.period);
+                        dayCount.setText(h.period);
+                        contact.setText(h.organization);
+                       email.setText(h.email);
+
+                        Picasso.get().load(h.pictureUrl).into(image);
+
+                       if(h.conditionsForOrganizations == null)   orgTerm.setText("Отсутсвуют");
+                       else orgTerm.setText(h.conditionsForOrganizations);
+                        if(h.conditionsForStudents == null)   indTerm.setText("Отсутсвуют");
+                        else indTerm.setText(h.conditionsForStudents);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Hostel> call, Throwable t) {
+
+                    }
+                });
+
 
         return rootView;
     }

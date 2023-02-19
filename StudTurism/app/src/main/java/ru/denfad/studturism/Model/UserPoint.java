@@ -2,7 +2,6 @@ package ru.denfad.studturism.Model;
 
 public class UserPoint {
 
-    public int id;
     public int userId;
     public double X;
     public double Y;
@@ -20,8 +19,8 @@ public class UserPoint {
         this.imageId = imageId;
     }
 
-    public UserPoint(int id, double x, double y, int likeCount, String description, String imageUri) {
-        this.id = id;
+    public UserPoint( double x, double y, int likeCount, String description, String imageUri) {
+
         X = x;
         Y = y;
         this.likeCount = likeCount;

@@ -31,13 +31,9 @@ import java.util.List;
 import ru.denfad.studturism.Model.NewsPost;
 import ru.denfad.studturism.R;
 import ru.denfad.studturism.Sevice.MainService;
-import ru.denfad.studturism.databinding.ActivityMainBinding;
+import ru.denfad.studturism.ui.ExpandableTextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link NewsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class NewsFragment extends Fragment {
 
     List<NewsPost> posts;
@@ -153,7 +149,7 @@ public class NewsFragment extends Fragment {
 
             holder.authorImage.setImageDrawable(getResources().getDrawable(R.drawable.vk_logo));
             holder.authorImage.setClipToOutline(true);
-            holder.authorName.setText("СтудТуризм");
+            holder.authorName.setText("@studturism");
 
         }
 
@@ -165,7 +161,7 @@ public class NewsFragment extends Fragment {
 
     class NewsViewHolder extends RecyclerView.ViewHolder {
         CollageView collage;
-        TextView text;
+        ExpandableTextView text;
         LinearLayout source;
         LikeButton like;
         TextView likesCount;

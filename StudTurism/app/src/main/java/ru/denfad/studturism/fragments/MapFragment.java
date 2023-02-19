@@ -40,11 +40,11 @@ import ru.denfad.studturism.Sevice.MainService;
 import ru.denfad.studturism.activities.AddMarkActivity;
 
 
-public class MapFragment extends Fragment  {
+public class MapFragment extends Fragment {
 
-    private  MapView mapview;
+    private MapView mapview;
     private MainService service;
-    private  BottomSheetBehavior bottomSheetBehavior;
+    private BottomSheetBehavior bottomSheetBehavior;
     private ImageView placeImage;
     private TextView placeText;
     private TextView placeDescription;
@@ -57,7 +57,7 @@ public class MapFragment extends Fragment  {
     private Button readyButton;
 
     public MapFragment() {
-       service = MainService.getInstance();
+        service = MainService.getInstance();
     }
 
     public static MapFragment newInstance() {
@@ -76,7 +76,7 @@ public class MapFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView =  inflater.inflate(R.layout.fragment_map, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_map, container, false);
 
         mapItemLayout = rootView.findViewById(R.id.map_item_layout);
         addMarkLayout = rootView.findViewById(R.id.add_mark_layout);
@@ -152,12 +152,12 @@ public class MapFragment extends Fragment  {
     private void createMarkers() {
         List<UserPoint> userPoints = service.getUserPoints();
         MapObjectCollection mapObjects = mapview.getMap().getMapObjects().addCollection();
-        for(UserPoint p: userPoints) {
+        for (UserPoint p : userPoints) {
             PlacemarkMapObject mark = mapObjects.addPlacemark(new Point(p.X, p.Y), createMarker(p));
             mark.addTapListener(new MapObjectTapListener() {
                 @Override
                 public boolean onMapObjectTap(@NonNull MapObject mapObject, @NonNull Point point) {
-                    if(!IS_ADDING_POINT) {
+                    if (!IS_ADDING_POINT) {
                         mapview.getMap().move(
                                 new CameraPosition(new Point(p.X, p.Y), 14.0f, 0.0f, 0.0f),
                                 new Animation(Animation.Type.SMOOTH, 1),
@@ -187,11 +187,11 @@ public class MapFragment extends Fragment  {
         }
     }
 
-    private ViewProvider createMarker(UserPoint p){
+    private ViewProvider createMarker(UserPoint p) {
         View markerView = getLayoutInflater().inflate(R.layout.map_mark, null);
         ImageView imageView = markerView.findViewById(R.id.mark_image);
         imageView.setImageDrawable(getResources().getDrawable(p.imageId));
-        return new ViewProvider(markerView,true);
+        return new ViewProvider(markerView, true);
     }
 
     @Override
@@ -209,7 +209,6 @@ public class MapFragment extends Fragment  {
         MapKitFactory.getInstance().onStart();
         mapview.onStart();
     }
-
 
 
 }
