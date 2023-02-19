@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -93,10 +94,12 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onResponse(Call<List<Review>> call, Response<List<Review>> response) {
                         reviews = response.body();
-                        Log.e("Profile", new Gson().toJson(response.body()));
-                        NewsAdapter adapter = new NewsAdapter();
-                        profileList.setAdapter(adapter);
-                        profileList.setLayoutManager(new LinearLayoutManager(getContext()));
+                        if(reviews != null) {
+                            Log.e("Profile", new Gson().toJson(response.body()));
+                            NewsAdapter adapter = new NewsAdapter();
+                            profileList.setAdapter(adapter);
+                            profileList.setLayoutManager(new LinearLayoutManager(getContext()));
+                        }
 
                     }
 
@@ -122,7 +125,7 @@ public class ProfileFragment extends Fragment {
         progress.setProgress(40);
         progress.setProgressText(String.valueOf(40));
 
-        Button add = rootView.findViewById(R.id.make_review);
+        ImageButton add = rootView.findViewById(R.id.make_review);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,8 +142,9 @@ public class ProfileFragment extends Fragment {
                 .enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
+
                         User u = response.body();
-                        name.setText(u.name + " "+u.surname);
+                        if(u != null) name.setText(u.name + " "+u.surname);
                     }
 
                     @Override
@@ -158,12 +162,14 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
                         books = response.body();
-                        Log.e("Server", response.message());
-                        Log.e("Server", response.toString());
-                        Log.e("Server", new Gson().toJson(response.body()));
-                        BookAdapter bookAdapter = new BookAdapter();
-                        bookList.setAdapter(bookAdapter);
-                        bookList.setLayoutManager(new LinearLayoutManager(getContext()));
+                        if(books != null) {
+                            Log.e("Server", response.message());
+                            Log.e("Server", response.toString());
+                            Log.e("Server", new Gson().toJson(response.body()));
+                            BookAdapter bookAdapter = new BookAdapter();
+                            bookList.setAdapter(bookAdapter);
+                            bookList.setLayoutManager(new LinearLayoutManager(getContext()));
+                        }
                     }
 
                     @Override

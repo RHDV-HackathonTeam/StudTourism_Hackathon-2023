@@ -78,20 +78,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
-            android:id="@+id/make_review"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:text="Создать рецензию"
-            android:textAllCaps="false"
-            android:layout_marginVertical="10dp"
-            android:layout_marginHorizontal="50dp"
-            android:textColor="@color/black"
-            android:backgroundTint="#E4E4E4"
-            android:textSize = "16sp"
-            android:elevation="2dp"
-            style="@style/Widget.Material3.Button"/>
+
 
         <View
             android:layout_marginVertical="5dp"
@@ -124,7 +111,10 @@
             android:layout_height="0.5dp"
             android:layout_marginHorizontal="15dp"
             android:background="#CFCECE" />
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
         <RadioGroup
             android:id="@+id/radio_button_posts"
             android:layout_width="wrap_content"
@@ -132,39 +122,53 @@
             android:layout_marginHorizontal="15dp"
             android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/my_review"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginVertical="2dp"
-            android:background="@drawable/radio_selector"
-            android:button="@android:color/transparent"
-            android:elevation="2dp"
-            android:gravity="center"
-            android:textSize="12sp"
-            android:text="Мои рецензиии"
-            android:paddingHorizontal="10dp"
-            android:textColor="@color/black" />
 
-        <RadioButton
-            android:id="@+id/my_points"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginVertical="2dp"
-            android:background="@drawable/radio_selector"
-            android:button="@android:color/transparent"
-            android:elevation="2dp"
-            android:gravity="center"
-            android:textSize="12sp"
-            android:text="Мои метки"
-            android:paddingHorizontal="10dp"
-            android:textColor="@color/black" />
+            <RadioButton
+                android:id="@+id/my_review"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginVertical="2dp"
+                android:background="@drawable/radio_selector"
+                android:button="@android:color/transparent"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:text="Мои рецензиии"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:id="@+id/my_points"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginVertical="2dp"
+                android:background="@drawable/radio_selector"
+                android:button="@android:color/transparent"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:text="Мои метки"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black" />
 
         </RadioGroup>
 
+            <ImageButton
+                android:id="@+id/make_review"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/circle"
+                android:backgroundTint="#A5A5A5"
+                android:src="@drawable/ic_edit"
+                android:elevation="2dp"
+                android:padding="5dp"
+                android:layout_marginHorizontal="5dp"
+                app:tint="@color/white" />
+    </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"

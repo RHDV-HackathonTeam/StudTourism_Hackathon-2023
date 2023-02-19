@@ -19,6 +19,7 @@ public class MainService {
     private List<Hostel> hostels = new ArrayList<>();
     private List<Book> books = new ArrayList<>();
     private List<UserPoint> userPoints = new ArrayList<>();
+    public static String IP;
 
     private static MainService instance;
 
