@@ -1,0 +1,1 @@
+from .NewsModel import NewsModel
