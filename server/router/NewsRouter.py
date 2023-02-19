@@ -22,3 +22,19 @@ def handle_news():
         else:
             return {"error": "The request payload is not in JSON format"}
 
+    if request.method == 'GET':
+        all_news = NewsModel.query.filter(NewsModel.id is not None).all()
+        output = list()
+        for news in all_news:
+            obj = {
+                "href": news.href,
+                "title": news.title,
+                "picture_url": news.picture_url,
+                "text": news.text,
+                "tags": news.tags
+            }
+
+            output.append(obj)
+
+        return output
+

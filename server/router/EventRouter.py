@@ -10,7 +10,7 @@ from server.models.Events import EventModel
 event = Blueprint('event_router', __name__)
 
 
-@event.route('/event', methods=['POST', 'GET'])
+@event.route('/events', methods=['POST', 'GET'])
 def handle_events():
     if request.method == 'POST':
         if request.is_json:
@@ -31,6 +31,26 @@ def handle_events():
             return {"message": f"Event {newEvent.track} has been created successfully."}
         else:
             return {"error": "The request payload is not in JSON format"}
+
+    if request.method == 'GET':
+        all_events = EventModel.query.filter(EventModel.id is not None).all()
+        output = list()
+        for event in all_events:
+            obj = {
+                "track": event.track,
+                "href": event.href,
+                "specialization": event.specialization,
+                "price": event.price,
+                "picture_url": event.picture_url,
+                "date": event.date,
+                "website": event.website,
+                "organization": event.organization,
+                "region": event.region
+            }
+
+            output.append(obj)
+
+        return output
 
 
 

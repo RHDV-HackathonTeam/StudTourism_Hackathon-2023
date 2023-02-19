@@ -27,3 +27,25 @@ def handle_science():
         else:
             return {"error": "The request payload is not in JSON format"}
 
+    if request.method == 'GET':
+        all_science = ScienceModel.query.filter(ScienceModel.id is not None).all()
+        output = list()
+        for science in all_science:
+            obj = {
+                "href": science.href,
+                "lab": science.lab,
+                "website": science.website,
+                "city": science.city,
+                "year": science.year,
+                "description": science.description,
+                "description_of_organization": science.description_of_organization,
+                "phone": science.phone,
+                "email": science.email,
+                "picture_url": science.picture_url
+            }
+
+            output.append(obj)
+
+        return output
+
+

@@ -39,7 +39,7 @@ def handle_hotels():
                     count=i['count'],
                     price=i['price'],
                     description=i['description'],
-                    bed_count = i['bed_count']
+                    bed_count=i['bed_count']
                 )
                 db.session.add(newRatesHotel)
 
@@ -52,7 +52,6 @@ def handle_hotels():
                 )
 
             db.session.commit()
-            print(1)
             return {"message": f"News {newHotel.hostel} has been created successfully."}
         else:
             return {"error": "The request payload is not in JSON format"}
@@ -111,8 +110,6 @@ def handle_hotels():
 
             hotel['rates'] = allrates
             hotel['services'] = allservices
-
-            print(hotel)
 
             all_hotels.append(hotel)
 
@@ -184,15 +181,15 @@ def hotel_filter():
         valid_hotels_by_rate = list()
         valid_hotels_by_service = list()
 
-        if data['flat_type'] is not None:
-            valid_obj = RatesHotelModel.query.filter(RatesHotelModel.room_type == data.get('flat_type')).all()
+        if data['flatType'] is not None:
+            valid_obj = RatesHotelModel.query.filter(RatesHotelModel.room_type == data.get('flatType')).all()
             for obj in valid_obj:
                 valid_hotels_by_rate.append(obj.hotel_id)
         else:
             pass
 
-        if data['bed_count'] is not None:
-            valid_obj = RatesHotelModel.query.filter(RatesHotelModel.bed_count == data.get('bed_count')).all()
+        if data['bedCount'] is not None:
+            valid_obj = RatesHotelModel.query.filter(RatesHotelModel.bed_count == data.get('bedCount')).all()
             for obj in valid_obj:
                 valid_hotels_by_service.append(obj.hotel_id)
         else:
@@ -204,9 +201,9 @@ def hotel_filter():
 
         for i in valid_hotels:
             hotels = HotelModel.query.filter_by(id=i)\
-                .filter(HotelModel.region == data.get('region') if data['region'] is not None else HotelModel.region) \
-                .filter(HotelModel.city == data.get('city') if data['city'] is not None else HotelModel.city) \
-                .filter(HotelModel.nutrition == data.get('food') if data['food'] is not None else HotelModel.nutrition) \
+                .filter(HotelModel.region == data.get('region') if data['region'] is not None else HotelModel.region == HotelModel.region) \
+                .filter(HotelModel.city == data.get('city') if data['city'] is not None else HotelModel.city == HotelModel.city) \
+                .filter(HotelModel.nutrition == data.get('food') if data['food'] is not None else HotelModel.nutrition == HotelModel.nutrition) \
                 .first()
 
             if hotels is None:
