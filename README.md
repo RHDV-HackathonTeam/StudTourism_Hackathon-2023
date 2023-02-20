@@ -1,5 +1,9 @@
 # StudTourism_Hackaton2023
 
+## [Презентация](https://docs.google.com/presentation/d/1nCBGMTsXPIGvK8M2AzTh1EEaJHaKE3MMFxRNaCAmfIQ/edit?usp=sharing)
+## [Тизер1 main](https://youtu.be/sRy2b7BDcP0)
+## [Тизер2](https://youtu.be/Xa4dWS8vkjM)
+
 ## About
 
 Удобная система направленая на расширение заинтересованной базы, путём привлечения новых пользователей геймификацией и гибкий подбор мероприятий, в соответствии с интересами пользователя.
@@ -13,14 +17,15 @@
 * [телеграмм бот](/telegram_bot)
 * [мидлвеер сервер валидатор для api интеграций внешних сервисов (госуслуги, пушкинская карта и тд)](/parser)
 
-## Stack
+## Project stack
 
 * Flask
 * SQLAlchemy
+* Postgresql
 * Selenium
 * Telegram API
 * VK API
-* Android SDK
+* Java | Android SDK 
 
 ## Authors
 
