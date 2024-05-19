@@ -33,4 +33,5 @@
 * [@Krukrukruzhka](https://github.com/Krukrukruzhka)
 * [@denfad](https://github.com/denfad)
 * [@Svoevolin](https://github.com/Svoevolin)
+* [@oganalytics](https://github.com/oganalytics)
 * [@KiRiLLBEL](https://github.com/KiRiLLBEL)
